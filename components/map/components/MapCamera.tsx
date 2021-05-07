@@ -5,27 +5,38 @@ import {
     Text,
     Dimensions,
     ActivityIndicator,
-    TextInput
+    TextInput,
+    Image,
+    TouchableOpacity
 } from 'react-native';
 import Config from "react-native-config";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import {initMapbox} from '../../../helper'
 import UserAnnotation from './UserAnnotation';
-import {IUserLocationProps} from '../types';
+import {IMapCameralProps} from '../types';
 import placeSearch from '../../../assets/files/placeSearch.png';
+import {PLACEHOLDER} from '../constants';
 
 
 
 const MapCamera = ({
     latitude,
-    longitude
-}: IUserLocationProps) => {
+    longitude,
+    handlePlaceModal
+}: IMapCameralProps) => {
 
   initMapbox()
   
     
     return (
         <View style={styles.container}>
+        <View style={styles.textInput} >
+            <Image source={placeSearch} />
+            <TouchableOpacity style={styles.textPlaceHolderWrapper} onPress={() => handlePlaceModal()}>
+            <Text style={styles.inputPlaceholder}>{PLACEHOLDER}</Text>
+            </TouchableOpacity>
+            
+        </View>
         <MapboxGL.MapView style={styles.map}>
         <MapboxGL.Camera
             zoomLevel={14}
@@ -50,6 +61,30 @@ const styles = StyleSheet.create({
     },
     map: {
       flex: 1
+    },
+    textInput: {
+      position: 'absolute',
+      top: 20,
+      zIndex: 12,
+      backgroundColor: '#ffffff',
+      width: '95%',
+      borderRadius: 35,
+      borderColor: '#EEEEEE',
+      alignSelf: 'center',
+      flexDirection: 'row',
+      height: 50,
+      alignItems: 'center',
+      paddingLeft: 12
+    },
+    textPlaceHolderWrapper: {
+      width: '90%',
+      height: '100%',
+      justifyContent: 'center'
+    },
+    inputPlaceholder: {
+      marginLeft: 20,
+      fontWeight: '600',
+      fontSize: 15,
     }
   });
 

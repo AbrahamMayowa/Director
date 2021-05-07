@@ -2,7 +2,7 @@
  * @constant
  */
 
- export const TEXTINPUT_PLACEHOLDER = 'Provide text';
+ export const PLACEHOLDER = 'Input your destination';
 
  export const BOUNCE_SPINNER = 'Bounce';
 

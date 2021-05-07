@@ -4,7 +4,7 @@ import {
     StyleSheet,
     Text,
     Dimensions,
-    ActivityIndicator
+    ActivityIndicator,
 } from 'react-native';
 import Config from "react-native-config";
 import MapboxGL from "@react-native-mapbox-gl/maps";
@@ -32,12 +32,16 @@ const Map = () => {
       longitude
     })
   }
+
+  const handlePlaceModal = () => {
+    console.log('ddddddddddd+++++++hghghghg==============h+++++++')
+  }
     
     return (
         <View style={styles.page}>
         <MapboxGL.UserLocation onUpdate={ (location) => handleUserLocation(location.coords.latitude, location.coords.longitude)}/>
         {(userLocation.longitude && userLocation.latitude) ? (
-          <MapCamera latitude={userLocation.latitude} longitude={userLocation.longitude} />
+          <MapCamera latitude={userLocation.latitude} longitude={userLocation.longitude} handlePlaceModal={handlePlaceModal}/>
         ) : (
           <ActivityIndicator color={USER_MAKER_COLOR} size={50}/>
         )}

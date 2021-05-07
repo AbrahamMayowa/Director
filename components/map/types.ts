@@ -5,5 +5,12 @@ export type UserLocation = {
 
 export interface IUserLocationProps {
     longitude: number;
-    latitude: number
+    latitude: number;
+    handlePlaceModal?: Function
+}
+
+export interface IMapCameralProps {
+    longitude: number;
+    latitude: number;
+    handlePlaceModal: Function
 }

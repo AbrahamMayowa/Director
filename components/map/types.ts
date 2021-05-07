@@ -1,4 +1,9 @@
 export type UserLocation = {
-    longitude: string | null;
-    latitude: string | null;
-} 
+    longitude: number | null;
+    latitude: number | null;
+}
+
+export interface IUserLocationProps {
+    longitude: number;
+    latitude: number
+}

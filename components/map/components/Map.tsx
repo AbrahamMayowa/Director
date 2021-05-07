@@ -3,14 +3,15 @@ import {
     View,
     StyleSheet,
     Text,
-    Dimensions
+    Dimensions,
+    ActivityIndicator
 } from 'react-native';
 import Config from "react-native-config";
 import MapboxGL from "@react-native-mapbox-gl/maps";
-import {requestPermission, subscribeToLocationUpdates, configure} from 'react-native-location';
 import {UserLocation} from '../types';
 import {initMapbox} from '../../../helper'
-import UserAnnotation from './UserAnnotation';
+import MapCamera from './MapCamera';
+import {USER_MAKER_COLOR} from '../constants';
 
 
 
@@ -19,30 +20,27 @@ const Map = () => {
   initMapbox()
   
     
-  const [] = useState<UserLocation>({
+  const [userLocation, setUserLocation] = useState<UserLocation>({
     longitude: null,
     latitude: null
   })
+
+  // handle realtime update of user location
+  const handleUserLocation = (latitude: number, longitude: number) => {
+    setUserLocation({
+      latitude,
+      longitude
+    })
+  }
     
     return (
         <View style={styles.page}>
-        <View style={styles.container}>
-            
-        <MapboxGL.MapView style={styles.map}>
-        <MapboxGL.Camera
-            zoomLevel={11}
-            centerCoordinate={[3.3362400, 6.5790100]}
-            animationMode={'flyTo'}
-            animationDuration={0}
-          >
-          </MapboxGL.Camera>
-
-          <UserAnnotation />
-        <MapboxGL.UserLocation />
-        </MapboxGL.MapView>
-
-          </View>
-        
+        <MapboxGL.UserLocation onUpdate={ (location) => handleUserLocation(location.coords.latitude, location.coords.longitude)}/>
+        {(userLocation.longitude && userLocation.latitude) ? (
+          <MapCamera latitude={userLocation.latitude} longitude={userLocation.longitude} />
+        ) : (
+          <ActivityIndicator color={USER_MAKER_COLOR} size={50}/>
+        )}
       </View>
     );
 };
@@ -56,12 +54,5 @@ const styles = StyleSheet.create({
       justifyContent: "center",
       alignItems: "center",
       backgroundColor: "#F5FCFF"
-    },
-    container: {
-      height: '100%',
-      width: '100%',
-    },
-    map: {
-      flex: 1
     }
   });

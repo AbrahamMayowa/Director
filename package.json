@@ -14,7 +14,8 @@
     "react": "17.0.1",
     "react-native": "0.64.0",
     "react-native-config": "^1.4.2",
-    "react-native-location": "^2.5.0"
+    "react-native-location": "^2.5.0",
+    "react-native-spinkit": "^1.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

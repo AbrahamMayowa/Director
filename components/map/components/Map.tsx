@@ -12,6 +12,7 @@ import {UserLocation} from '../types';
 import {initMapbox} from '../../../helper'
 import MapCamera from './MapCamera';
 import {USER_MAKER_COLOR} from '../constants';
+import AutoComplete from './AutoComplete';
 
 
 
@@ -25,6 +26,12 @@ const Map = () => {
     latitude: null
   })
 
+  const [visibleModal, setVisibleModal] = useState<boolean>(false)
+
+  const toggleModal = () => {
+    setVisibleModal(prev => !prev);
+  };
+
   // handle realtime update of user location
   const handleUserLocation = (latitude: number, longitude: number) => {
     setUserLocation({
@@ -33,15 +40,20 @@ const Map = () => {
     })
   }
 
-  const handlePlaceModal = () => {
-    console.log('ddddddddddd+++++++hghghghg==============h+++++++')
-  }
+  const handlePlaceValue = (address: string) => {
+    console.log(address)
+  };
     
     return (
         <View style={styles.page}>
+        <AutoComplete
+        handleVisible={toggleModal}
+        addressOnClick={handlePlaceValue}
+        visibleBoolean={visibleModal}
+        />
         <MapboxGL.UserLocation onUpdate={ (location) => handleUserLocation(location.coords.latitude, location.coords.longitude)}/>
         {(userLocation.longitude && userLocation.latitude) ? (
-          <MapCamera latitude={userLocation.latitude} longitude={userLocation.longitude} handlePlaceModal={handlePlaceModal}/>
+          <MapCamera latitude={userLocation.latitude} longitude={userLocation.longitude} toggleModal={toggleModal}/>
         ) : (
           <ActivityIndicator color={USER_MAKER_COLOR} size={50}/>
         )}

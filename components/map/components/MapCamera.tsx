@@ -22,7 +22,7 @@ import {PLACEHOLDER} from '../constants';
 const MapCamera = ({
     latitude,
     longitude,
-    handlePlaceModal
+    toggleModal
 }: IMapCameralProps) => {
 
   initMapbox()
@@ -32,7 +32,7 @@ const MapCamera = ({
         <View style={styles.container}>
         <View style={styles.textInput} >
             <Image source={placeSearch} />
-            <TouchableOpacity style={styles.textPlaceHolderWrapper} onPress={() => handlePlaceModal()}>
+            <TouchableOpacity style={styles.textPlaceHolderWrapper} onPress={() => toggleModal()}>
             <Text style={styles.inputPlaceholder}>{PLACEHOLDER}</Text>
             </TouchableOpacity>
             

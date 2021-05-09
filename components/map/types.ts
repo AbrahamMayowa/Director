@@ -12,7 +12,9 @@ export interface IUserLocationProps {
 export interface IMapCameralProps {
     longitude: number;
     latitude: number;
-    toggleModal: Function
+    toggleModal: Function;
+    starting: Array<number | null>
+    destination: Array<number | null>
 }
 
 export interface IAutoCompleteProps {
@@ -34,3 +36,18 @@ export interface PlaceDetails {
     loading: boolean;
     error: string;
   }
+
+  export interface IDestinationAPI {
+      loading: boolean;
+      longitude: number | null;
+      latitude: number | null;
+      destination: string | null;
+  }
+
+
+  export interface IDirectionProps {
+      starting: number[];
+      destination: number[]
+  }
+
+  export type CordinateArrayType = number[];

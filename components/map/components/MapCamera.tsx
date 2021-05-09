@@ -13,19 +13,26 @@ import Config from "react-native-config";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import {initMapbox} from '../../../helper'
 import UserAnnotation from './UserAnnotation';
-import {IMapCameralProps} from '../types';
+import {
+  IMapCameralProps,
+  CordinateArrayType
+} from '../types';
 import placeSearch from '../../../assets/files/placeSearch.png';
 import {PLACEHOLDER} from '../constants';
+import Direction from './Direction';
 
 
 
 const MapCamera = ({
     latitude,
     longitude,
-    toggleModal
+    toggleModal,
+    starting,
+    destination
 }: IMapCameralProps) => {
 
   initMapbox()
+  //console.log(destination)
   
     
     return (
@@ -41,11 +48,16 @@ const MapCamera = ({
         <MapboxGL.Camera
             zoomLevel={14}
             centerCoordinate={[longitude, latitude]}
-            animationMode={'flyTo'}
+            animationMode='moveTo'
             animationDuration={0}
           >
           </MapboxGL.Camera>
-          <UserAnnotation longitude={longitude} latitude={latitude}/>
+     
+            <Direction starting={starting as CordinateArrayType} destination={destination as CordinateArrayType} />
+          
+            <MapboxGL.ShapeSource id='shapeSource' shape={route}>
+              <MapboxGL.LineLayer id='lineLayer' style={{lineWidth: 5, lineJoin: 'bevel', lineColor: '#ff0000'}} />
+            </MapboxGL.ShapeSource>
           
         </MapboxGL.MapView>
 

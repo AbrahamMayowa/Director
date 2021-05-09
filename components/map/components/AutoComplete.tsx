@@ -53,7 +53,7 @@ const AddressAutoComplete = ({
           ...places,
           loading: true,
         });
-        const googleMapUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${placeValue}&key=${Config.GOOGLE_PLACE_API}&components=country:ng`;
+        const googleMapUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${placeValue}&key=${Config.GOOGLE_PLACE_API}`;
         const res = await fetch(googleMapUrl);
         const placeValues: PlaceResponse = await res.json();
         setPlaces({
@@ -73,7 +73,7 @@ const AddressAutoComplete = ({
     }
   };
 
-  
+
 
   let placeElement;
   if (loading) {
@@ -128,9 +128,11 @@ const AddressAutoComplete = ({
   );
 };
 
+const widthDimension = Dimensions.get('window').width
+
 const styles = StyleSheet.create({
   modalWrapper: {
-    width: Dimensions.get('window').width,
+    width: widthDimension,
     alignItems: 'center',
     justifyContent: 'center',
     paddingRight: '10%',
@@ -138,14 +140,14 @@ const styles = StyleSheet.create({
     marginBottom: -30
   },
   containerWrapper: {
-    width: Dimensions.get('window').width,
+    width: widthDimension,
     backgroundColor: '#F6F8FA',
     height: '100%',
     alignItems: 'center',
   },
   inputFieldWrapper: {
     backgroundColor: '#ffffff',
-      width: Dimensions.get('screen').width * 0.95,
+      width: widthDimension * 0.95,
       borderRadius: 35,
       borderColor: '#EEEEEE',
       alignSelf: 'center',
@@ -174,7 +176,7 @@ const styles = StyleSheet.create({
     marginRight: 8
   },
   addressItem: {
-    width: Dimensions.get('screen').width * 0.90,
+    width: widthDimension * 0.90,
     height: 45,
     marginTop: 15,
     borderColor: '#EAECF4',

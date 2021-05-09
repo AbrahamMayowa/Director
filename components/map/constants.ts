@@ -13,3 +13,8 @@
 export const NO_INTERNET = 'Check your internet connection!';
 
 export const CANCEL = 'Cancel';
+
+export const ERROR_OCCURED = 'An error occured';
+
+export const NO_DIRECTION = 'No direction found';
+

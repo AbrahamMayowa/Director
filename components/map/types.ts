@@ -13,8 +13,9 @@ export interface IMapCameralProps {
     longitude: number;
     latitude: number;
     toggleModal: Function;
-    starting: Array<number | null>
-    destination: Array<number | null>
+    starting: Array<number | null>;
+    destination: Array<number | null>;
+    handleCameraBound: Function;
 }
 
 export interface IAutoCompleteProps {

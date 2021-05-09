@@ -1,15 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useRef, useEffect} from 'react';
 import {
     View,
     StyleSheet,
     Text,
-    Dimensions,
-    ActivityIndicator,
-    TextInput,
     Image,
     TouchableOpacity
 } from 'react-native';
-import Config from "react-native-config";
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import {initMapbox} from '../../../helper'
 import UserAnnotation from './UserAnnotation';
@@ -20,6 +16,8 @@ import {
 import placeSearch from '../../../assets/files/placeSearch.png';
 import {PLACEHOLDER} from '../constants';
 import Direction from './Direction';
+import {USER_MAKER_COLOR} from '../constants'
+
 
 
 
@@ -28,11 +26,14 @@ const MapCamera = ({
     longitude,
     toggleModal,
     starting,
-    destination
+    destination,
+    handleCameraBound,
 }: IMapCameralProps) => {
 
+
   initMapbox()
-  //console.log(destination)
+
+  const cameraRaf:any = useRef()
   const shapeTest: any = {
   
       type: 'Feature',
@@ -41,9 +42,22 @@ const MapCamera = ({
       },
       geometry: {
         type: 'LineString',
-        coordinates: [[-120.084990,37.426929],[-122.0836272, 37.4226667]]
+        coordinates: [starting,destination]
       }
   }
+
+  // bound camera zoom level to certain condinate
+  useEffect(() => {
+    if (destination[0]) {
+      handleCameraBound(cameraRaf)
+    }
+    
+  }, [destination[0]])
+
+
+
+
+
     
     return (
         <View style={styles.container}>
@@ -57,19 +71,24 @@ const MapCamera = ({
         <MapboxGL.MapView style={styles.map}>
         <MapboxGL.Camera
             zoomLevel={11}
+            ref={cameraRaf}
             centerCoordinate={[longitude, latitude]}
             animationMode='moveTo'
             animationDuration={0}
           >
           </MapboxGL.Camera>
 
-          <UserAnnotation longitude={longitude} latitude={latitude} />
-     
+          
+
+          {destination[0] ? <View>
             <Direction starting={starting as CordinateArrayType} destination={destination as CordinateArrayType} />
           
             <MapboxGL.ShapeSource id='shapeSource' shape={shapeTest}>
-              <MapboxGL.LineLayer id='lineLayer' style={{lineWidth: 5, lineJoin: 'bevel', lineColor: '#ff0000'}} />
+              <MapboxGL.LineLayer id='lineLayer' style={{lineWidth: 4, lineJoin: 'bevel', lineColor: USER_MAKER_COLOR}} />
             </MapboxGL.ShapeSource>
+            </View> : <UserAnnotation longitude={longitude} latitude={latitude} />}
+     
+            
           
         </MapboxGL.MapView>
 

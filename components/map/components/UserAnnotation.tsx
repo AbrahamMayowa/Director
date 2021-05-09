@@ -16,11 +16,11 @@ const UserAnnotation = ({
 
     return (
               <MapboxGL.MarkerView
-                key="pointAnnotation"
-                id="pointAnnotation"
+                key="user-point"
+                id="user-point"
                 coordinate={[longitude, latitude]}>
                 <View style={styles.userPoint}>
-                    <Icon name="map-marker-outline" size={30} color={'blue'} />
+                    <Icon name="map-marker-outline" size={30} color={USER_MAKER_COLOR} />
                 </View>
               </MapboxGL.MarkerView>
             );

@@ -58,6 +58,10 @@ const Map = () => {
     })
   }
 
+  // bound camera to certain cordinate
+  const cameraBound = (boundRef: any) => {
+    boundRef.current.fitBounds([userLocation.longitude, userLocation.latitude],[destinationAPI.longitude, destinationAPI.latitude])
+  }
 
 
 
@@ -84,7 +88,6 @@ const Map = () => {
         const direction = await res.json();
         if (direction.routes.length >= 1) {
           const routes = direction.routes[0].legs[0]
-          console.log(routes.start_location)
           setDestinationAPI({
             ...destinationAPI,
             loading: false,
@@ -105,7 +108,6 @@ const Map = () => {
         Alert.alert(NO_INTERNET)
       } else {
         Alert.alert(ERROR_OCCURED)
-        console.log(err)
       }
     }
   };
@@ -130,7 +132,8 @@ const Map = () => {
         />
         <MapboxGL.UserLocation onUpdate={ (location) => handleUserLocation(location.coords.latitude, location.coords.longitude)}/>
         {(userLocation.longitude && userLocation.latitude) ? (
-          <MapCamera 
+          <MapCamera
+          handleCameraBound={cameraBound}
           latitude={userLocation.latitude} 
           longitude={userLocation.longitude} 
           toggleModal={toggleModal} 

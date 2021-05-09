@@ -8,17 +8,12 @@ import {
   Dimensions,
   TouchableOpacity,
   ActivityIndicator,
-  Image
+  Image,
 } from 'react-native';
 import Modal from 'react-native-modal';
 import {IAutoCompleteProps, Places, PlaceResponse} from '../types';
 import Config from 'react-native-config';
-import {
-  PLACEHOLDER,
-  NETWORK_ERROR,
-  NO_INTERNET,
-  CANCEL
-} from '../constants';
+import {PLACEHOLDER, NETWORK_ERROR, NO_INTERNET, CANCEL} from '../constants';
 import map from '../../../assets/files/placeSearch.png';
 import cancelMap from '../../../assets/files/cancel.png';
 import {USER_MAKER_COLOR} from '../constants';
@@ -38,8 +33,7 @@ const AddressAutoComplete = ({
 
   const {googlePlaces, loading, error} = places;
 
-  const searchInput:any = createRef();
-
+  const searchInput: any = createRef();
 
   /**
    *
@@ -73,11 +67,15 @@ const AddressAutoComplete = ({
     }
   };
 
-
-
   let placeElement;
   if (loading) {
-    placeElement = <ActivityIndicator style={styles.searchingIndicator} color={USER_MAKER_COLOR} size={30}/>;
+    placeElement = (
+      <ActivityIndicator
+        style={styles.searchingIndicator}
+        color={USER_MAKER_COLOR}
+        size={30}
+      />
+    );
   } else if (!loading && error) {
     placeElement = <Text style={styles.placeError}>{error}</Text>;
   } else {
@@ -97,12 +95,12 @@ const AddressAutoComplete = ({
   return (
     <Modal
       isVisible={visibleBoolean}
-      animationIn='slideInUp'
-      animationOut='slideOutDown'>
+      animationIn="slideInUp"
+      animationOut="slideOutDown">
       <View style={styles.modalWrapper}>
         <View style={styles.containerWrapper}>
           <View style={styles.inputFieldWrapper}>
-              <Image source={map} style={styles.mapIcon} />
+            <Image source={map} style={styles.mapIcon} />
             <TextInput
               onChangeText={(text: string) => {
                 fetchGooglePlaces(text);
@@ -114,11 +112,13 @@ const AddressAutoComplete = ({
             />
 
             <TouchableOpacity onPress={() => searchInput.current.clear()}>
-              <Image source={cancelMap}/>
+              <Image source={cancelMap} />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.cancelTextWrapper} onPress={() => handleVisible()}>
-              <Text style={styles.cancelText} >{CANCEL}</Text>
+            <TouchableOpacity
+              style={styles.cancelTextWrapper}
+              onPress={() => handleVisible()}>
+              <Text style={styles.cancelText}>{CANCEL}</Text>
             </TouchableOpacity>
           </View>
           <ScrollView>{placeElement}</ScrollView>
@@ -128,7 +128,7 @@ const AddressAutoComplete = ({
   );
 };
 
-const widthDimension = Dimensions.get('window').width
+const widthDimension = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   modalWrapper: {
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingRight: '10%',
     marginTop: -30,
-    marginBottom: -30
+    marginBottom: -30,
   },
   containerWrapper: {
     width: widthDimension,
@@ -147,40 +147,39 @@ const styles = StyleSheet.create({
   },
   inputFieldWrapper: {
     backgroundColor: '#ffffff',
-      width: widthDimension * 0.95,
-      borderRadius: 35,
-      borderColor: '#EEEEEE',
-      alignSelf: 'center',
-      flexDirection: 'row',
-      height: 60,
-      alignItems: 'center',
-      paddingLeft: 12,
-      overflow: 'hidden',
-      paddingHorizontal: 12,
-      marginTop: 25
-
+    width: widthDimension * 0.95,
+    borderRadius: 35,
+    borderColor: '#EEEEEE',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    height: 60,
+    alignItems: 'center',
+    paddingLeft: 12,
+    overflow: 'hidden',
+    paddingHorizontal: 12,
+    marginTop: 25,
   },
   autoCompleteInput: {
-    width: '65%'
+    width: '65%',
   },
   cancelTextWrapper: {
     marginLeft: 8,
     borderLeftWidth: 0.5,
-    paddingLeft: 4
+    paddingLeft: 4,
   },
   cancelText: {
     color: '#ACAFC3',
-    fontSize: 16
+    fontSize: 16,
   },
   mapIcon: {
-    marginRight: 8
+    marginRight: 8,
   },
   addressItem: {
-    width: widthDimension * 0.90,
+    width: widthDimension * 0.9,
     height: 45,
     marginTop: 15,
     borderColor: '#EAECF4',
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
   },
   addressText: {
     fontSize: 14,

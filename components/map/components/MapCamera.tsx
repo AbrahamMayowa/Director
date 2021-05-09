@@ -33,7 +33,17 @@ const MapCamera = ({
 
   initMapbox()
   //console.log(destination)
+  const shapeTest: any = {
   
+      type: 'Feature',
+      properties: {
+        icon: 'exampleIcon',
+      },
+      geometry: {
+        type: 'LineString',
+        coordinates: [[-120.084990,37.426929],[-122.0836272, 37.4226667]]
+      }
+  }
     
     return (
         <View style={styles.container}>
@@ -46,16 +56,18 @@ const MapCamera = ({
         </View>
         <MapboxGL.MapView style={styles.map}>
         <MapboxGL.Camera
-            zoomLevel={14}
+            zoomLevel={11}
             centerCoordinate={[longitude, latitude]}
             animationMode='moveTo'
             animationDuration={0}
           >
           </MapboxGL.Camera>
+
+          <UserAnnotation longitude={longitude} latitude={latitude} />
      
             <Direction starting={starting as CordinateArrayType} destination={destination as CordinateArrayType} />
           
-            <MapboxGL.ShapeSource id='shapeSource' shape={route}>
+            <MapboxGL.ShapeSource id='shapeSource' shape={shapeTest}>
               <MapboxGL.LineLayer id='lineLayer' style={{lineWidth: 5, lineJoin: 'bevel', lineColor: '#ff0000'}} />
             </MapboxGL.ShapeSource>
           

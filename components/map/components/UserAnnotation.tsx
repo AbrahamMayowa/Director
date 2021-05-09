@@ -4,6 +4,7 @@ import MapboxGL from "@react-native-mapbox-gl/maps";
 import {initMapbox} from '../../../helper'
 import {USER_MAKER_COLOR} from '../constants'
 import {IUserLocationProps} from '../types';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 
@@ -14,12 +15,14 @@ const UserAnnotation = ({
     initMapbox()
 
     return (
-              <MapboxGL.PointAnnotation
+              <MapboxGL.MarkerView
                 key="pointAnnotation"
                 id="pointAnnotation"
                 coordinate={[longitude, latitude]}>
-                <View style={styles.userPoint}/>
-              </MapboxGL.PointAnnotation>
+                <View style={styles.userPoint}>
+                    <Icon name="map-marker-outline" size={30} color={'blue'} />
+                </View>
+              </MapboxGL.MarkerView>
             );
 }
 
@@ -27,10 +30,6 @@ const styles = StyleSheet.create({
     userPoint: {
         height: 30, 
         width: 30, 
-        backgroundColor: USER_MAKER_COLOR, 
-        borderRadius: 50, 
-        borderColor: '#fff', 
-        borderWidth: 3
     }
 })
 

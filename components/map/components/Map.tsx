@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
     View,
     StyleSheet,
-    Text,
     Dimensions,
     ActivityIndicator,
     Alert,
@@ -20,6 +19,7 @@ import {
   NO_DIRECTION
 } from '../constants';
 import AutoComplete from './AutoComplete';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 
 
@@ -99,11 +99,19 @@ const Map = () => {
             latitude: routes.start_location.lat
           })
         } else {
+          setDestinationAPI({
+            ...destinationAPI,
+            loading: false
+          });
           Alert.alert(NO_DIRECTION)
         }
         
       }
     } catch (err) {
+      setDestinationAPI({
+        ...destinationAPI,
+        loading: false
+      });
       if (err.message === NETWORK_ERROR) {
         Alert.alert(NO_INTERNET)
       } else {
@@ -114,7 +122,6 @@ const Map = () => {
 
 
   const handlePlaceValue = (address: string) => {
-   // console.log(address)
     setDestinationAPI({
       ...destinationAPI,
       destination: address
@@ -125,6 +132,11 @@ const Map = () => {
     
     return (
         <View style={styles.page}>
+        <Spinner
+        visible={destinationAPI.loading}
+        children={<ActivityIndicator style={styles.indicatorStyle} size={70} color={USER_MAKER_COLOR}/>}
+        animation='slide'
+      />
         <AutoComplete
         handleVisible={toggleModal}
         addressOnClick={handlePlaceValue}
@@ -156,5 +168,8 @@ const styles = StyleSheet.create({
       justifyContent: "center",
       alignItems: "center",
       backgroundColor: "#F5FCFF"
-    }
+    },
+    indicatorStyle: {
+      flex: 1,
+    },
   });

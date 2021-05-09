@@ -8,5 +8,5 @@
 
 # add the following to the env: 
 
-MAPBOX_PUBLIC_KEY
-GOOGLE_PLACE_API
+1. MAPBOX_PUBLIC_KEY
+2. GOOGLE_PLACE_API

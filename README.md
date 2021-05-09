@@ -2,6 +2,8 @@
 
 # yarn install
 
+# build for android only
+
 # create env file
 
 # add the following to the env: 
